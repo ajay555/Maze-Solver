@@ -29,30 +29,24 @@ function setup() {
 	endCell = grid[rows-1][cols-1];
 
 	current = startCell;
-}
 
-function draw() {
-	if(!mazeGenerated) {
-		background(255);
-
-		for(var row = 0; row < rows; row++) 
-			for(var col = 0; col < cols; col++) 
-				grid[row][col].show();
-
+	while(!mazeGenerated) {
 		generateMaze();
 	}
 
-	if(mazeGenerated && !mazeSolverStarted) {
-		mazeSolverStarted = true;
+	resetVisited();
 
-		resetVisited();
+	solveMaze(startCell, grid);
 
-		solveMaze(startCell, grid);
+	background(255);
 
-		for(var row = 0; row < rows; row++)
-			for(var col = 0; col < cols; col++)
-				grid[row][col].show();
-	}
+	for(var row = 0; row < rows; row++) 
+		for(var col = 0; col < cols; col++) 
+			grid[row][col].show();
+}
+
+function draw() {
+	
 }
 
 function solveMaze(current, curGrid) {
